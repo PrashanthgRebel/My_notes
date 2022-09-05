@@ -1,0 +1,94 @@
+<html>
+	<body>
+
+
+	<h1>LVM</h4>
+
+<p>https://www.linuxhelp.com/how-to-manage-and-create-lvm-on-centos-7</p>
+
+<p>https://www.youtube.com/watch?v=Eu1WrVjzRy8</p>
+<h3> Steps</h3>
+<p>
+To Create new partition Press : n<br>
+Choose primary partition use : p<br>
+Choose which number of partition to be selected to create the primary partition.<br>
+Press 1 if any other disk available.<br>
+Change the type using : t <br>
+Type 8e to change the partition type to Linux LVM: 8e <br>
+Use p to print the create partition ( here we have not used the option).<br>
+Press w to write the changes : w </p>
+
+<p>
+Get storage</p>
+
+<p>Create new partition using fdisk</p>
+
+<p>
+$ fdisk /dev/sdb</p>
+
+<p>n &mdash;> new</p>
+
+<p>p &mdash;> primary</p>
+
+<p>Fist sector &mdash;> enter</p>
+
+<p>Allocate required size</p>
+
+<p>t &mdash;> type of fs<br>
+W &mdash;-> save</p>
+
+<p>Partprobe &mdash;-> refresh disk<br>
+</p>
+
+<p>
+Now we can see sdb1 under sdb using $ lsblk</p>
+
+<p>Lets create physical volume</p>
+
+<p>$ pvcreate /dev/sdb1</p>
+
+<p>Lets create volume group with name</p>
+
+<p>$ vgcreate test /dev/sdb1</p>
+
+<p>Lets create logical volume</p>
+
+<p>$ lvcreate <br>
+lvcreate -n <new lv name> -L <size > <vgname><br>
+lvcreate -n rebel -L +10G test</p>
+
+<p>Check lsblk then u can find lvm new partition</p>
+
+<p>Formate new partition with required file system</p>
+
+<p>Mkfs.ext4 /dev/test/rebel</p>
+
+<p>Then find blkid and create new directory and make entry in /etc/fstab</p>
+
+<p>
+$ mkdir prashanth<br>
+Check blk id of new partition<br>
+$blkid<br>
+Make entry in fstab</p>
+
+<p>Ex: uuid=1234566 /prashanth ext4 defaults 0 0</p>
+
+<p>Then mount new partition<br>
+ mount -a</p>
+
+<p>df -h we can see</p>
+
+<p>/prashanth</p>
+
+<p></p>
+
+<p>Unmounting <br>
+&mdash;-> revers</p>
+
+<p>Resize LVM</p>
+
+<p>https://www.tecmint.com/extend-and-reduce-lvms-in-linux/</p>
+
+<p></p>
+		</body>
+</html>

@@ -1,0 +1,69 @@
+<html>
+	<body>
+
+ <p># check cluster health <br>
+ <br>
+ http://IP:9200/_cluster/health?pretty <br>
+ <br>
+http://IP:9200/_cat/health?v&amp;pretty <br>
+ <br>
+# check all indices health <br>
+ <br>
+ http://IP:9200/_cluster/health?level=indices&amp;pretty <br>
+ <br>
+# check all shards health <br>
+ <br>
+ http://IP:9200/_cluster/health?level=shards&amp;pretty <br>
+ <br>
+# Check list of nodes <br>
+ <br>
+ http://192.168.xx.xx:9200/_cat/nodes?v&amp;pretty</p><br>
+  
+# allocation explain
+ <p> _cluster/allocation/explain</p> 
+
+
+
+ </body><br>
+
+<p>=^.^=<br>
+/_cat/allocation<br>
+/_cat/shards<br>
+/_cat/shards/{index}<br>
+/_cat/master<br>
+/_cat/nodes<br>
+/_cat/tasks<br>
+/_cat/indices<br>
+/_cat/indices/{index}<br>
+/_cat/segments<br>
+/_cat/segments/{index}<br>
+/_cat/count<br>
+/_cat/count/{index}<br>
+/_cat/recovery<br>
+/_cat/recovery/{index}<br>
+/_cat/health<br>
+/_cat/pending_tasks<br>
+/_cat/aliases<br>
+/_cat/aliases/{alias}<br>
+/_cat/thread_pool<br>
+/_cat/thread_pool/{thread_pools}<br>
+/_cat/plugins<br>
+/_cat/fielddata<br>
+/_cat/fielddata/{fields}<br>
+/_cat/nodeattrs<br>
+/_cat/repositories<br>
+/_cat/snapshots/{repository}<br>
+/_cat/templates<br>
+/_cat/ml/anomaly_detectors<br>
+/_cat/ml/anomaly_detectors/{job_id}<br>
+/_cat/ml/trained_models<br>
+/_cat/ml/trained_models/{model_id}<br>
+/_cat/ml/datafeeds<br>
+/_cat/ml/datafeeds/{datafeed_id}<br>
+/_cat/ml/data_frame/analytics<br>
+/_cat/ml/data_frame/analytics/{id}<br>
+/_cat/transforms<br>
+/_cat/transforms/{transform_id}</p>
+</html></p>
+	</body>
+</html>

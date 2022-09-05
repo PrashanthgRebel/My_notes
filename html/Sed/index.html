@@ -1,0 +1,110 @@
+<h1>SED</h1>
+
+<h3>sed (stream editor)</h3>
+used to display and edit data<br>
+edtiting options - insertion , addition , deletion<br>
+2Types of opetrations<br>
+1 Line Addressing<br>
+2 Context Addressing</p>
+
+<p>[root@rebel-106 ~]# cat -n data.txt<br>
+1 id|name|salary<br>
+2 1|prashanth|50000<br>
+3 2|rebel|45000<br>
+4 3|bhahu|40000<br>
+5 4|linux|30000<br>
+6 5|mr.xxx|20000<br>
+[root@rebel-106 ~]#</p>
+
+<h3>Display specific line</h3>
+[root@rebel-106 ~]# sed -n &amp;#39;5p&amp;#39; data.txt<br>
+4|linux|30000<br>
+[root@rebel-106 ~]#<br>
+<h3>Display last line</h3>
+[root@rebel-106 ~]# sed -n &amp;#39;$p&amp;#39; data.txt<br>
+5|mr.xxx|20000<br>
+[root@rebel-106 ~]#<br>
+<h3>Display Range of line</h3>
+[root@rebel-106 ~]# sed -n &amp;#39;2,4p&amp;#39; data.txt<br>
+1|prashanth|50000<br>
+2|rebel|45000<br>
+3|bhahu|40000<br>
+[root@rebel-106 ~]#</p>
+
+<h3>Skip lines in results ( !p )</h3>
+[root@rebel-106 ~]# cat -n data.txt | sed -n &amp;#39;2,4!p&amp;#39;<br>
+1 id|name|salary<br>
+5 4|linux|30000<br>
+6 5|mr.xxx|20000</p>
+
+<h3>Context Addressing</h3>
+Display lines having specific word<br>
+[root@rebel-106 ~]# sed -n &amp;#39;/linux/p&amp;#39; data.txt<br>
+4|linux|30000<br>
+[root@rebel-106 ~]#<br>
+<h3>Display lines having specific word by ignoring case</h3>
+[root@rebel-106 ~]# sed -n &amp;#39;/[Ll]inux/p&amp;#39; data.txt<br>
+4|linux|30000<br>
+6|Linux|30000<br>
+[root@rebel-106 ~]#<br>
+<h3>write/save out to new file ( W )</h3>
+sed -n &amp;#39;/[Ll]inux/w out.txt&amp;#39; data.txt<br>
+[root@rebel-106 ~]# cat out.txt<br>
+4|linux|30000<br>
+6|Linux|30000<br>
+substutute data in file ( sed &lsquo;s/old/new/&rsquo; data.txt)<br>
+[root@rebel-106 ~]# sed &amp;#39;s/30000/100/&amp;#39; data.txt<br>
+id|name|salary<br>
+1|prashanth|50000<br>
+2|rebel|45000<br>
+3|bhahu|40000<br>
+4|linux|100<br>
+5|mr.xxx|20000<br>
+6|Linux|100</p>
+
+<p>Replace multiple data in a file ( sed -e) -e extende operation<br>
+[root@rebel-106 ~]# sed -e &amp;#39;s/30000/10/&amp;#39; -e &amp;#39;s/45000/15/&amp;#39; data.txt<br>
+id|name|salary<br>
+1|prashanth|50000<br>
+2|rebel|15<br>
+3|bhahu|40000<br>
+4|linux|10<br>
+5|mr.xxx|20000<br>
+6|Linux|10</p>
+
+<p>Replace/substitute data by checking conditions<br>
+my condition is linux<br>
+[root@rebel-106 ~]# sed &amp;#39;/linux/s/30000/150/&amp;#39; data.txt<br>
+id|name|salary<br>
+1|prashanth|50000<br>
+2|rebel|45000<br>
+3|bhahu|40000<br>
+4|linux|150<br>
+5|mr.xxx|20000<br>
+6|Linux|30000<br>
+Delete line or data from file (d)<br>
+[root@rebel-106 ~]# sed &amp;#39;/linux/d&amp;#39; data.txt (for entire row)<br>
+id|name|salary<br>
+1|prashanth|50000<br>
+2|rebel|45000<br>
+3|bhahu|40000<br>
+5|mr.xxx|20000<br>
+6|Linux|30000<br>
+[root@rebel-106 ~]# sed &amp;#39;/[Ll]inux/d&amp;#39; data.txt<br>
+id|name|salary<br>
+1|prashanth|50000<br>
+2|rebel|45000<br>
+3|bhahu|40000<br>
+5|mr.xxx|20000<br>
+[root@rebel-106 ~]#</p>
+
+<p>Insert /add line in a file ( i )<br>
+[root@rebel-106 ~]# sed &amp;#39;1i this is sed practicing&amp;#39; data.txt<br>
+this is sed practicing<br>
+id|name|salary<br>
+1|prashanth|50000<br>
+2|rebel|45000<br>
+3|bhahu|40000<br>
+4|linux|30000<br>
+5|mr.xxx|20000<br>
+6|Linux|30000</p>

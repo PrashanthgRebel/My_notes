@@ -1,0 +1,222 @@
+<html>
+	<body>
+
+
+<h1>Mysql</h1>
+
+<h2>How to Install MySQL 5.7 on Linux CentOS</h2>
+
+<p>Step 1 - Add New Repository</p>
+
+<p>yum localinstall https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm</p>
+
+<p>Step 2 - Install MySQL 5.7</p>
+
+<p>yum -y install mysql-community-server</p>
+
+<p>Step 3 - Start MySQL and Enable Start at Boot Time</p>
+
+<p>systemctl start mysqld<br>
+systemctl enable mysqld</p>
+
+<p>Step 4 - Configure the MySQL Root Password</p>
+
+<p>grep 'temporary' /var/log/mysqld.log</p>
+
+<p>mysql -u root -p<br>
+TYPE DEFAULT PASSWORD</p>
+
+<p>change user pass:</p>
+
+<p>ALTER USER 'root'@'localhost' IDENTIFIED BY 'Prashanth@123';</p>
+
+<p>flush privileges;</p>
+
+
+<h2>How to Configure MySQL Master-Slave Replication on CentOS 7</h2>
+
+<p>Master IP =192.168.1.101<br>
+slave IP = 192.168.1.102</p>
+
+<h4> Configure the Master Server</h4>
+
+<p>Set the MySQL server to listen on the private IP .<br>
+Set a unique server ID.<br>
+Enable the binary logging.</p>
+
+<p>
+open the MySQL configuration file and add the following lines in the [mysqld] section:</p>
+
+<p>[mysqld]</p>
+
+<p>bind-address = 192.168.1.101<br>
+server-id = 1106<br>
+log_bin = mysql-bin</p>
+
+<p>then restart mysqld</p>
+
+<p>systemctl restart mysqld</p>
+
+
+
+
+<h4> Configure the Slave Server </h4>
+
+<p>Like for the master server above, we&rsquo;ll make the following changes to the slave server:</p>
+
+<p>Set the MySQL server to listen on the private IP<br>
+Set a unique server ID<br>
+Enable the binary logging</p>
+
+<p>vim /etc/my.cnf</p>
+
+<p>[mysqld]</p>
+
+<p>bind-address = 192.168.1.107<br>
+server-id = 1107<br>
+log_bin = mysql-bin</p>
+
+<p>then restart mysqld</p>
+
+<p>systemctl restart mysqld<br>
+</p>
+
+
+
+
+<h4>ON MASTER server : create the replica user and grant the REPLICATION SLAVE privilege to the user</h4>
+
+<p>
+mysql> CREATE USER 'repl'@'IP' IDENTIFIED BY 'password';<br>
+Query OK, 0 rows affected (1.53 sec)</p>
+
+<p>mysql></p>
+
+<p>mysql> GRANT REPLICATION SLAVE ON *.* TO 'repl'@'IP'; flush privileges;<br>
+Query OK, 0 rows affected (1.48 sec)</p>
+
+<p># take output of mastser status from master sever and note</p>
+
+<p>mysql> SHOW MASTER STATUS\G<br>
+*************************** 1. row ***************************<br>
+ File: mysql-bin.000001<br>
+ Position: 619<br>
+ Binlog_Do_DB: <br>
+ Binlog_Ignore_DB: <br>
+Executed_Gtid_Set: <br>
+1 row in set (0.00 sec)</p>
+
+<p>mysql></p>
+
+<h4>
+ON SLAVE server : attach slave to master using mastser status out</h4>
+
+<p>First, stop the slave threads:<br>
+STOP SLAVE;</p>
+
+<p>######then execute below and make sure of ip and pass and log_pos and log_file</p>
+
+<p>mysql> CHANGE MASTER TO<br>
+ -> MASTER_HOST='192.168.1.106',<br>
+ -> MASTER_USER='repl',<br>
+ -> MASTER_PASSWORD='Prashanth@123',<br>
+ -> MASTER_LOG_FILE='mysql-bin.000001',<br>
+ -> MASTER_LOG_POS=619;</p>
+
+<p> <br>
+mysql>start slave;</p>
+
+
+
+
+<h2>################# Mysql Access ######################</h2>
+
+<p> # read only access :<br>
+GRANT SELECT ON database_name.table_name TO 'username'@'localhost' IDENTIFIED BY 'password';</p>
+
+<p> # read / write : <br>
+GRANT SELECT,INSERT,PROCESS,UPDATE ON database_name.table_name TO 'username'@'localhost' IDENTIFIED BY 'password';</p>
+
+<p> # read / write / delete :<br>
+GRANT SELECT,INSERT,UPDATE,PROCESS,DELETE ON database_name.table_name TO 'username'@'localhost' IDENTIFIED BY 'password';</p>
+
+<p> # read / write / delete / execute :<br>
+GRANT SELECT,INSERT,UPDATE,DELETE,PROCESS,EXECUTE ON database_name.table_name TO 'username'@'localhost' IDENTIFIED BY 'password';</p>
+
+<p>
+ # Grant all access :<br>
+GRANT CREATE,DROP,LOCK TABLES,REFERENCES,EVENT,ALTER,DELETE,INDEX,INSERT,SELECT,UPDATE,CREATE TEMPORARY TABLES,TRIGGER,CREATE VIEW,SHOW VIEW,ALTER ROUTINE,PROCESS,CREATE ROUTINE,EXECUTE ON Database_name.* TO 'Username'@'IP' IDENTIFIED BY 'PASSWORD';flush privileges;<br>
+</p>
+
+
+<h2>####################### MySQL commonds #######################</h2>
+
+<p># Password Reset<br>
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'Prashanth@123'; <br>
+OR<br>
+SET PASSWORD FOR 'user'@'host' = PASSWORD('newpass');<br>
+OR<br>
+UPDATE mysql.user SET Password=PASSWORD('newpass') WHERE User='user' AND Host='host';</p>
+
+<p>
+# flush tables<br>
+mysqladmin flush-tables &amp;&amp; mysqladmin flush-tables &amp;&amp; mysqladmin flush-tables &amp;&amp; mysql -e &quot;stop slave;&quot; &amp;&amp; mysql -e &quot;show slave status\G&quot; > /home/prashanthg/mysqlslave.txt &amp;&amp; service mysqld stop</p>
+
+<p># Attach or Reset slave <br>
+stop slave ;reset slave;change master to master_host='XXX' , master_user='XXX', master_password='password', master_log_file='XXX', master_log_pos=XXX; start slave; flush privileges;</p>
+
+<p># Attach or Reset slave on Multiport<br>
+stop slave ; reset slave; CHANGE MASTER TO MASTER_HOST='XXX', MASTER_USER='XXX', MASTER_PASSWORD='password', MASTER_PORT=XXX, MASTER_LOG_FILE='XXX', MASTER_LOG_POS=XXX; start slave;</p>
+
+
+<p># Table size <br>
+select (data_length+index_length)/1024/1024/1024 from information_schema.TABLES where table_name='temp_vn_answered_calls_remote2' ;</p>
+
+
+<p>##########  GTID SKIP ##########################
+			<br/>
+			<br/>
+[prashanthg@39-56-IDC ~]$ sudo -i
+			<br/>
+[root@39-56-IDC ~]# mysql -e "show slave status\G" | egrep 'Master_UUID:'
+			<br/>
+                  Master_UUID: bc3b793f-d869-11e9-bb10-9840bb671698
+			<br/>
+[root@39-56-IDC ~]# mysql -e "show slave status\G" | grep -A4 'Executed_Gtid_Set: '
+			<br/>
+            Executed_Gtid_Set: bc3b793f-d869-11e9-bb10-9840bb671698:1-10623806532
+			<br/>
+                Auto_Position: 1
+			<br/>
+         Replicate_Rewrite_DB: 
+			<br/>
+                 Channel_Name: 
+			<br/>
+           Master_TLS_Version: 
+			<br/>
+[root@39-56-IDC ~]# 
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+stop slave; set GTID_NEXT='bc3b793f-d869-11e9-bb10-9840bb671698:10623806533'; begin;commit; set GTID_NEXT=automatic; start slave;
+		</p>
+
+
+
+
+
+
+
+
+<p></p>
+
+<p></p>
+
+
+
+
+
+
+		</body>
+</html>

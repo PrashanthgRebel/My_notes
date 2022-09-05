@@ -1,0 +1,323 @@
+<html>	
+	<body>
+
+
+
+
+AWK <br>
+<br>
+print all data from a file <br>
+awk '{ print $0 }' awkTest.txt<br>
+<br>
+print one more colum<br>
+ awk '{ print $1 , $2 }' awkTest.txt<br>
+<br>
+print with sepetaror (any)<br>
+awkTest.txt | awk '{ print $1 &quot;- &quot; $2 }' | head<br>
+<br>
+prashanth@prashanth:~$ cat awkTest.txt | awk '{ print $1 &quot;- &quot; $2 }' | head -n 5<br>
+USER- PID<br>
+root- 1<br>
+root- 2<br>
+root- 3<br>
+root- 4<br>
+prashanth@prashanth:~$ <br>
+<br>
+<br>
+<br>
+>>>NR<br>
+<br>
+Do not print specified rows <br>
+<br>
+cat -n awkTest.txt | awk 'NR!=1{ print $1 &quot; &amp; &quot; $2 &quot; &amp; &quot; $3}' | head -n 10<br>
+<br>
+prashanth@prashanth:~$ cat -n awkTest.txt | awk 'NR!=1{ print $1 &quot; &amp; &quot; $2 &quot; &amp; &quot; $3}' | head -n 10<br>
+2 &amp; root &amp; 1<br>
+3 &amp; root &amp; 2<br>
+4 &amp; root &amp; 3<br>
+5 &amp; root &amp; 4<br>
+6 &amp; root &amp; 6<br>
+7 &amp; root &amp; 9<br>
+8 &amp; root &amp; 10<br>
+9 &amp; root &amp; 11<br>
+10 &amp; root &amp; 12<br>
+11 &amp; root &amp; 13<br>
+prashanth@prashanth:~$ <br>
+<br>
+print selected rows<br>
+<br>
+prashanth@prashanth:~$ cat -n awkTest.txt | awk 'NR<=7{ print $1 &quot; &amp; &quot; $2 &quot; &amp; &quot; $3}'<br>
+1 &amp; USER &amp; PID<br>
+2 &amp; root &amp; 1<br>
+3 &amp; root &amp; 2<br>
+4 &amp; root &amp; 3<br>
+5 &amp; root &amp; 4<br>
+6 &amp; root &amp; 6<br>
+7 &amp; root &amp; 9<br>
+<br>
+<br>
+AND &amp;&amp; ( AND (&amp;&amp;) print if both conditions are true)<br>
+<br>
+prashanth@prashanth:~$ cat -n awkTest.txt | awk 'NR>=1 &amp;&amp; NR<=7{ print $1 &quot; &amp; &quot; $2 &quot; &amp; &quot; $3}'<br>
+1 &amp; USER &amp; PID<br>
+2 &amp; root &amp; 1<br>
+3 &amp; root &amp; 2<br>
+4 &amp; root &amp; 3<br>
+5 &amp; root &amp; 4<br>
+6 &amp; root &amp; 6<br>
+7 &amp; root &amp; 9<br>
+prashanth@prashanth:~$ <br>
+<br>
+prashanth@prashanth:~$ cat -n awkTest.txt | awk 'NR>1 &amp;&amp; NR<=7{ print $1 &quot; &amp; &quot; $2 &quot; &amp; &quot; $3}'<br>
+2 &amp; root &amp; 1<br>
+3 &amp; root &amp; 2<br>
+4 &amp; root &amp; 3<br>
+5 &amp; root &amp; 4<br>
+6 &amp; root &amp; 6<br>
+7 &amp; root &amp; 9<br>
+prashanth@prashanth:~$ <br>
+<br>
+<br>
+OR || ( OR (||) print if any one condition is true )<br>
+<br>
+print records less then 5rows and print recodrd after 10 rows<br>
+<br>
+prashanth@prashanth:~$ cat -n awkTest.txt | awk 'NR<5 || NR>=10{ print $1 &quot; &amp; &quot; $2 &quot; &amp; &quot; $3}' | head -n 20<br>
+1 &amp; USER &amp; PID<br>
+2 &amp; root &amp; 1<br>
+3 &amp; root &amp; 2<br>
+4 &amp; root &amp; 3<br>
+10 &amp; root &amp; 12<br>
+11 &amp; root &amp; 13<br>
+12 &amp; root &amp; 14<br>
+13 &amp; root &amp; 15<br>
+14 &amp; root &amp; 16<br>
+15 &amp; root &amp; 17<br>
+16 &amp; root &amp; 18<br>
+17 &amp; root &amp; 20<br>
+18 &amp; root &amp; 21<br>
+prashanth@prashanth:~$ <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+Filter data<br>
+<br>
+Conditionally select data<br>
+<br>
+with numeric<br>
+<br>
+[root@rebel-106 ~]# ps aux | awk '$2==718{print $0}'<br>
+chrony 718 0.0 0.0 117808 1728 ? S 21:25 0:00 /usr/sbin/chronyd<br>
+[root@rebel-106 ~]# <br>
+<br>
+with stirng<br>
+<br>
+[root@rebel-106 ~]# ps aux | awk '$11==&quot;nginx:&quot;{print $0}'<br>
+root 1227 0.0 0.0 39300 936 ? Ss 21:25 0:00 nginx: master process /usr/sbin/nginx<br>
+nginx 1228 0.0 0.0 39692 1820 ? S 21:25 0:00 nginx: worker process<br>
+nginx 1229 0.0 0.0 39692 1820 ? S 21:25 0:00 nginx: worker process<br>
+[root@rebel-106 ~]# <br>
+<br>
+Filter data with OR ,AND<br>
+<br>
+AND (&amp;&amp;) print if both conditions are true<br>
+<br>
+awk '$1>=10 &amp;&amp; $4>=5000{ print $0 }'<br>
+<br>
+OR (||) print if any one condition is true<br>
+<br>
+awk '$1>=10 || $4>=5000{ print $0 }'<br>
+<br>
+<br>
+Filter by paasing substring value in colum and record ?/ anywere in the row<br>
+<br>
+<br>
+awk '/gmail.com/{ print $0 }' file.txt<br>
+<br>
+- ignore substring by !<br>
+ <br>
+awk '!/gmail.com/{ print $0 }' file.txt<br>
+<br>
+- print exact string which requred in colum<br>
+<br>
+ string starting from p in 5th colum<br>
+<br>
+awk '$5~&quot;P&quot;{ print $0 }' file.txt<br>
+<br>
+<br>
+<br>
+<br>
+search text at start (^)<br>
+<br>
+ ps aux | awk '/^root/ {print $0}<br>
+<br>
+[root@rebel-106 ~]# ps aux | awk '/^r/ {print $0}' | head<br>
+root 1 0.0 0.1 128040 6676 ? Ss Oct16 0:03 /usr/lib/systemd/systemd --switched-root --system --deserialize 22<br>
+root 2 0.0 0.0 0 0 ? S Oct16 0:00 [kthreadd]<br>
+root 4 0.0 0.0 0 0 ? S< Oct16 0:00 [kworker/0:0H]<br>
+root 6 0.0 0.0 0 0 ? R Oct16 0:00 [ksoftirqd/0]<br>
+root 7 0.0 0.0 0 0 ? S Oct16 0:00 [migration/0]<br>
+root 8 0.0 0.0 0 0 ? S Oct16 0:00 [rcu_bh]<br>
+root 9 0.0 0.0 0 0 ? S Oct16 0:01 [rcu_sched]<br>
+root 10 0.0 0.0 0 0 ? S< Oct16 0:00 [lru-add-drain]<br>
+root 11 0.0 0.0 0 0 ? S Oct16 0:00 [watchdog/0]<br>
+root 12 0.0 0.0 0 0 ? S Oct16 0:00 [watchdog/1]<br>
+[root@rebel-106 ~]# <br>
+<br>
+<br>
+[root@rebel-106 ~]# ps aux | awk '$1~/^n/ {print $0}' | head<br>
+nginx 1228 0.0 0.0 39692 1820 ? S Oct16 0:00 nginx: worker process<br>
+nginx 1229 0.0 0.0 39692 1820 ? S Oct16 0:00 nginx: worker process<br>
+[root@rebel-106 ~]# <br>
+<br>
+search text at end ($)<br>
+<br>
+<br>
+<br>
+[root@rebel-106 ~]# ps aux | awk '$1~/x$/ {print $0}' | head<br>
+nginx 1228 0.0 0.0 39692 1820 ? S Oct16 0:00 nginx: worker process<br>
+nginx 1229 0.0 0.0 39692 1820 ? S Oct16 0:00 nginx: worker process<br>
+postfix 1282 0.0 0.1 90320 4252 ? S Oct16 0:00 qmgr -l -t unix -u<br>
+postfix 2412 0.0 0.1 90252 4224 ? S Oct16 0:00 pickup -l -t unix -u<br>
+[root@rebel-106 ~]# <br>
+[root@rebel-106 ~]# <br>
+[root@rebel-106 ~]#<br>
+<br>
+<br>
+combine start and end <br>
+<br>
+[root@rebel-106 ~]# ps aux | awk '$1~/^n/ &amp;&amp; $1~/x$/ {print $0}' | head<br>
+nginx 1228 0.0 0.0 39692 1820 ? S Oct16 0:00 nginx: worker process<br>
+nginx 1229 0.0 0.0 39692 1820 ? S Oct16 0:00 nginx: worker process<br>
+[root@rebel-106 ~]# <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+if-else Conditions<br>
+<br>
+if<br>
+<br>
+[root@rebel-106 ~]# awk -F &quot;|&quot; '{ if ($3 >= 40000) print $0 }' data.txt <br>
+id|name|salary<br>
+1|prashanth|50000<br>
+2|rebel|45000<br>
+3|bhahu|40000<br>
+[root@rebel-106 ~]# <br>
+<br>
+&amp;&amp; if both conditions is true<br>
+<br>
+[root@rebel-106 ~]# awk -F &quot;|&quot; '{ if ($3 >= 20000 &amp;&amp; $3 <= 40000) print $0 }' data.txt <br>
+3|bhahu|40000<br>
+4|linux|30000<br>
+[root@rebel-106 ~]# <br>
+<br>
+<br>
+|| if any one condition is true<br>
+<br>
+[root@rebel-106 ~]# awk -F &quot;|&quot; '{ if ($3 >= 20000 || $1 == 4) print $0 }' data.txt <br>
+id|name|salary<br>
+1|prashanth|50000<br>
+2|rebel|45000<br>
+3|bhahu|40000<br>
+4|linux|30000<br>
+[root@rebel-106<br>
+<br>
+<br>
+if-else<br>
+<br>
+[root@rebel-106 ~]# awk -F &quot;|&quot; '{if ($3 >= 45000) print $0 ; else print &quot;---not mached items&quot;;}' data.txt <br>
+id|name|salary<br>
+1|prashanth|50000<br>
+2|rebel|45000<br>
+---not mached items<br>
+---not mached items<br>
+[root@rebel-106 ~]# <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+if else-if else<br>
+<br>
+[root@rebel-106 ~]# awk -F &quot;|&quot; '{if($3 >= 25000 &amp;&amp; $3 <= 30000) print$2 &quot;-> you tax is 20&quot; ; else if($3 >= 30001 &amp;&amp; $3 <= 50000) print$2 &quot;your tax is 30%&quot;; else print$2 &quot; your tax is 10%&quot; }' data.txt <br>
+name your tax is 10% -- remove header NR!=1<br>
+prashanthyour tax is 30%<br>
+rebelyour tax is 30%<br>
+bhahuyour tax is 30%<br>
+linux-> you tax is 20<br>
+mr.xxx your tax is 10%<br>
+[root@rebel-106 ~]# <br>
+<br>
+remove header<br>
+<br>
+[root@rebel-106 ~]# awk -F &quot;|&quot; 'NR!=1{if($3 >= 25000 &amp;&amp; $3 <= 30000) print$2 &quot;-> you tax is 20&quot; ; else if($3 >= 30001 &amp;&amp; $3 <= 50000) print$2 &quot;your tax is 30%&quot;; else print$2 &quot; your tax is 10%&quot; }' data.txt <br>
+prashanthyour tax is 30%<br>
+rebelyour tax is 30%<br>
+bhahuyour tax is 30%<br>
+linux-> you tax is 20<br>
+mr.xxx your tax is 10%<br>
+[root@rebel-106 ~]# <br>
+<br>
+<br>
+Blocks <br>
+<br>
+BEGIN block<br>
+<br>
+[root@rebel-106 ~]# awk -F &quot;|&quot; 'BEGIN{print &quot;printing tax accoriding to slary&quot;} NR!=1{if($3 >= 25000 &amp;&amp; $3 <= 30000) print$2 &quot;-> you tax is 20&quot; ; else if($3 >= 30001 &amp;&amp; $3 <= 50000) print$2 &quot;your tax is 30%&quot;; else print$2 &quot; your tax is 10%&quot; }' data.txt <br>
+<br>
+<br>
+printing tax accoriding to slary<br>
+prashanthyour tax is 30%<br>
+rebelyour tax is 30%<br>
+bhahuyour tax is 30%<br>
+linux-> you tax is 20<br>
+mr.xxx your tax is 10%<br>
+[root@rebel-106 ~]# <br>
+[root@rebel-106 ~]# <br>
+[root@rebel-106 ~]# <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+[root@rebel-106 ~]# awk -F &quot;|&quot; 'BEGIN{print &quot;========printing tax accoriding to slary===========&quot;} NR!=1{if($3 >= 25000 &amp;&amp; $3 <= 30000) print$2 &quot;-> you tax is 20&quot; ; else if($3 >= 30001 &amp;&amp; $3 <= 50000) print$2 &quot;your tax is 30%&quot;; else print$2 &quot; your tax is 10%&quot; } END {print &quot;======task Done==========&quot;}' data.txt <br>
+<br>
+<br>
+========printing tax accoriding to slary===========<br>
+prashanthyour tax is 30%<br>
+rebelyour tax is 30%<br>
+bhahuyour tax is 30%<br>
+linux-> you tax is 20<br>
+mr.xxx your tax is 10%<br>
+======task Done==========<br>
+[root@rebel-106 ~]# <br>
+<br>
+<br>
+Print out put with header<br>
+<br>
+root@prashanth:~# pidstat | awk 'NR==3 || $10 >= 10'<br>
+05:36:16 PM IST UID PID %usr %system %guest %wait %CPU CPU Command<br>
+05:36:16 PM IST 1000 4360 15.57 2.11 0.00 0.13 17.69 0 thunderbird-bin<br>
+root@prashanth:~# <br>
+<br>
+root@prashanth:~# pidstat | awk 'NR==3 || $10 >= 10 {print $0}'<br>
+05:40:42 PM IST UID PID %usr %system %guest %wait %CPU CPU Command<br>
+05:40:42 PM IST 1000 4360 15.51 2.10 0.00 0.13 17.62 3 thunderbird-bin<br>
+root@prashanth:~# <br>
+root@prashanth:~# <br>
+	</body>
+</html>

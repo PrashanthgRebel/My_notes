@@ -1,0 +1,39 @@
+<html>
+	<body>
+
+<h4>Take server details</h4>
+
+<p>LINE=&quot;###############################################################################################################&quot;;sudo cat /proc/sys/kernel/hostname > /root/details_&#96;date +%d%b%Y&#96; ; sudo echo $LINE >> /root/details_&#96;date +%d%b%Y&#96; ; sudo /sbin/ifconfig -a >> /root/details_&#96;date +%d%b%Y&#96; ; sudo echo $LINE >> /root/details_&#96;date +%d%b%Y&#96;;sudo cat /proc/net/bonding/bond0 >> /root/details_&#96;date +%d%b%Y&#96;;sudo echo $LINE >> /root/details_&#96;date +%d%b%Y&#96; ;sudo dmidecode -t system >> /root/details_&#96;date +%d%b%Y&#96; ; sudo echo $LINE >> /root/details_&#96;date +%d%b%Y&#96; ; sudo df -h >> /root/details_&#96;date +%d%b%Y&#96; ; sudo echo $LINE >> /root/details_&#96;date +%d%b%Y&#96; ; sudo free -g >> /root/details_&#96;date +%d%b%Y&#96; ;sudo echo $LINE >> /root/details_&#96;date +%d%b%Y&#96; ;sudo netstat -ntlp >> /root/details_&#96;date +%d%b%Y&#96; ;sudo echo $LINE >> /root/details_&#96;date +%d%b%Y&#96; ; DOCK_CONT=&#96;sudo docker ps -q&#96;; for i in $DOCK_CONT; do echo &quot;docker ports : &quot; >> /root/details_&#96;date +%d%b%Y&#96;; sudo docker port $i >> /root/details_&#96;date +%d%b%Y&#96;; done; sudo echo $LINE >> /root/details_&#96;date +%d%b%Y&#96; ; screen -ls >> /root/details_&#96;date +%d%b%Y&#96; ; sudo echo $LINE >> /root/details_&#96;date +%d%b%Y&#96; ; sudo multipath -ll >> /root/details_&#96;date +%d%b%Y&#96; ;sudo echo $LINE >> /root/details_&#96;date +%d%b%Y&#96; ;cat /sys/class/fc_host/*/port_name >> /root/details_&#96;date +%d%b%Y&#96;; sudo echo $LINE >> /root/details_&#96;date +%d%b%Y&#96; ;sudo cat /etc/fstab >> /root/details_&#96;date +%d%b%Y&#96; ;sudo echo $LINE >> /root/details_&#96;date +%d%b%Y&#96; ; sudo mysqld_multi report >> /root/details_&#96;date +%d%b%Y&#96; ;sudo echo $LINE >> /root/details_&#96;date +%d%b%Y&#96; ; sudo ps auxf >> /root/details_&#96;date +%d%b%Y&#96; ;sudo echo $LINE >> /root/details_&#96;date +%d%b%Y&#96; ;sudo mount >> /root/details_&#96;date +%d%b%Y&#96; ; echo &quot;history from root before activity&quot; >> /root/details_history_&#96;date +%d%b%Y&#96;; sudo echo $LINE >> /root/details_history_&#96;date +%d%b%Y&#96;; history >> /root/details_history_&#96;date +%d%b%Y&#96;;</p>
+
+<h4>############## Find commonds ##############</h4>
+
+<p>find /var/lib/SQL -type f -size +1G | xargs du -hsc | sort -rh</p>
+
+<p></p>
+
+<h4>
+######################Varnish cache clear#################</h4>
+
+<p>cd /scripts</p>
+
+<p>ls -lrth | grep -i varnish</p>
+
+<p>sh clear_all_cache_varnish.sh</p>
+
+<h4>
+################## table size #####################</h4>
+
+<p>select (data_length+index_length)/1024/1024/1024 from information_schema.TABLES where table_name='temp_vn_answered_calls_remote2' ;</p>
+
+<p></p>
+
+<h4>################# macth text files ###############</h4>
+
+<p>comm -2 -3 <( sort cron_list ) <( sort cron_list5 ) > cron_list6<br>
+</p>
+<br>
+<h4># ######check process time########### </h4>
+<p> ps -eo pid,etime,cmd | grep 'processname or pid' </p>
+
+	</body>
+</html>
