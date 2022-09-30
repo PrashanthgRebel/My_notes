@@ -1,0 +1,50 @@
+<p>Please find below POA of 192.168.42.221 server migration.</p>
+
+<p>1) Take Details of cluster nodes and Note Mater and slave ID's of 192.168.42.221 <br>
+ # redis-cli -h 192.168.42.221 -a 'JdM@rtsErvice5' -c cluster nodes</p>
+
+<p>2) Take Details of Master and slave keys for 192.168.42.221 and stop Redis on 192.168.42.221<br>
+ # service redis stop</p>
+
+<p> NOTE: if 192.168.42.221 is master , wait untile slave become master and all Keys are replicated</p>
+
+<p> after replication is completed , Do forget cluster ID of 192.168.42.221 from all the nodes<br>
+ login to 192.168.42.237</p>
+
+<p> # for i in &#96;redis-cli -h 192.168.42.237 -a 'JdM@rtsErvice5' -c cluster nodes | grep -i '192.168' | awk '{print $2}' | cut -f1 -d:&#96; ; do echo $i ; redis-cli -h $i -a 'W365erv!ce5' -c CLUSTER FORGET &quot;please enter cluster ID of 192.168.42.221&quot; ; done</p>
+
+<p>
+3) copy Below files to new server<br>
+ /etc/redis/redis.conf<br>
+ /opt/.rediscred<br>
+ /opt/sysmon</p>
+
+<p>4) Take free IP from System team and perform IP swap</p>
+
+<p>5) set Hostname<br>
+hostnamectl set-hostname 42-221-IDC.justdial.com <br>
+hostnamectl set-hostname &quot;42-221-IDC.justdial.com&quot; --pretty<br>
+hostnamectl set-hostname 42-221-IDC.justdial.com --static<br>
+hostnamectl set-hostname 42-221-IDC.justdial.com --transient</p>
+
+<p>6)add below lines on redis service file under service block and start redis on new server (now it will start as standalone master)<br>
+ TimeoutStopSec=1200<br>
+ TimeoutStartSec=1200<br>
+ LimitNOFILE=65535</p>
+
+<p>7) Add 192.168.42.221 server to cluster<br>
+login to slave / master of 192.168.42.221 <br>
+#redis-cli -h 192.168.42.237 -a 'JdM@rtsErvice5' info (note slave/master ip of 42.221 )</p>
+
+<p>login to slave / master of 192.168.42.221<br>
+join node to cluster<br>
+ > cluster meet 192.168.42.221 6379</p>
+
+<p>8) on 192.168.42.221</p>
+
+<p>replicate keys</p>
+
+<p>> cluster replicate (enter master/slave id of 42.221)</p>
+
+<p>Wait until server gets replicated<br>
+</p>
