@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notes-deployment-target-role
+  labels:
+    role: target-role
+  namespace: notes-user-deploy
+spec:
+  
+  replicas: 2
+  selector:
+    matchLabels:
+      role: target-role
+  template:
+    metadata:
+      annotations:
+        kubernetes.io/change-cause: notes:ImageTAG
+      labels:
+        role: target-role
+    spec:
+      containers:
+      - name: notes-deployment-green
+        image: registry.prashanth.private:5000/notes:ImageTAG
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+        ports:
+        - containerPort: 800
+          containerPort: 810
+        volumeMounts:
+          - mountPath: /etc/hosts
+            name: hosts
+          - mountPath: /var/log/nginx
+            name: ngix-logs
+      volumes:
+        - name: hosts
+          hostPath:
+            path: /etc/hosts
+            
+        - name: ngix-logs
+          hostPath:
+            path: /var/log/nginx
