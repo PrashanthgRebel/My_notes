@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  website:
+    image: nginx
+    container_name: notes_001
+    privileged: true
+    restart: unless-stopped
+    volumes:
+      - "/etc/hosts:/etc/hosts"
+      - "/var/www/production/html/:/var/www/production/html/"
+      - "/var/www/production/webserver/:/etc/nginx/"
+    ports:
+      - "80:81"
