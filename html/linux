@@ -1,0 +1,1108 @@
+Linux Learing
+
+Linux
+
+1. What is Linux?
+
+Linux is an open-source operating system based on UNIX. It was named after the founder “Linus Torvalds”. He introduced Linux with the primary goal to offer an operating system at a free or very reasonable price for users. It is based on the Linux kernel and is compatible with different hardware platforms such as Intel, MIPS, HP, IBM, SPARC, and Motorola hardware platforms. Linux’s mascot, a penguin named Tux, is another popular feature. Linux offers a user-friendly environment where they can easily modify and create variations in the source code.
+Stages of Linux Boot Process:
+ 1. The BIOS Integrity Check (POST)
+
+        When the Linux system powers up, the BIOS (Basic Input Output System) kicks in and performs a Power On Self Test (POST). This is an integrity check that performs a plethora of diagnostic checks
+
+The POST probes the hardware operability of components such as the HDD or SSD, Keyboard, RAM, USB ports, and any other piece of hardware. If some hardware device is not detected, or if there’s a malfunction in any of the devices such as a corrupt HDD or SSD, an error message is splashed on the screen prompting your intervention.
+
+2. MBR (Master Boot Record)
+
+        
+
+Once the POST is complete and the coast is clear, the BIOS probes the MBR (Master Boot Record) for the bootloader and disk partitioning information.
+
+The MBR is a 512-byte code that is located on the first sector of the hard drive which is usually /dev/sda or /dev/hda depending on your hard drive architecture. Note, however, that sometimes the MBR can be located on a Live USB or DVD installation of Linux.
+
+3. GRUB2
+
+ stands for GRand Unified Bootloader version 2. Once the BIOS locates the grub2 bootloader, it executes and loads it onto the main memory (RAM).
+
+The grub2 menu allows you to do a couple of things. It allows you to select the Linux kernel version that you’d want to use. If you have been upgrading your system a couple of times, you might see different kernel versions listed. Additionally, it gives you the ability to edit some kernel parameters by pressing a combination of keyboard keys.
+
+The grub2 configuration file is the /boot/grub2/grub2.cfg 
+
+4. Kernel Initialization
+
+        The kernel is the core of any Linux system. It interfaces the PC’s hardware with the underlying processes. The kernel controls all the processes on your Linux system. Once the selected Linux kernel is loaded by the bootloader, it must self extract from its compressed version before undertaking any task. Upon self-extracting, the selected kernel mounts the root file system and initializes the /sbin/init program commonly referred to as init.
+
+5.Starting Systemd
+
+        The kernel finally loads Systemd, Systemd is the mother of all Linux processes and manages among other things mounting of file systems, starting and stopping services
+
+Here’s a breakdown of the systemd targets:
+
+    poweroff.target (runlevel 0): Poweroff or Shutdown the system.
+    rescue.target (runlevel 1): launches a rescue shell session.
+    multi-user.target (runlevel 2,3,4): Configures the system to a non-graphical (console) multi-user system.
+    graphical.target (runlevel 5): Set the system to use a graphical multi-user interface with network services.
+    reboot.target (runlevel 6): reboots the system.
+
+        To check the current target on your system, run the command:
+
+                # systemctl get-default
+
+        You can switch from one target to another by running the following command on the terminal:
+
+                # init <run level value>
+
+         
+
+2. What are the components of the Linux system?
+
+There are three primary components of the Linux system which are explained below.
+
+Kernel: The kernel is the most important component of Linux. It is in charge of the operating system’s primary functions. It is made up of a number of modules that interface directly with the hardware. Kernel offers the necessary abstraction for system or application programs to mask low-level hardware information.
+
+System libraries: They are specialized functions or programs that allow application programs or system utilities to access Kernel capabilities. These libraries implement the majority of the operating system’s functionality and do not require kernel module code access permissions.
+
+System Utility: Programs in the System Utility category are in charge of performing specialized, individual-level activities. They are more dependable and also provide users control over the computer.
+
+3. What is LILO?
+
+LILO (Linux Loader) is a boot loader for Linux. It is used to load Linux into memory and start the operating system. LILO can be configured to boot other operating systems as well. LILO is customizable, i.e., if the default configuration is not correct, it can be changed. The config file for LILO is lilo.conf. LILO is also a code snippet that loads PC BIOS into the main memory at the time of starting the computer system.
+
+It handles the following tasks:
+
+    Locating Linux kernel
+    Identifying other supporting programs and loading them in memory
+    Starting the kernel
+
+The selection of various Kernel images and boot routines is supported by LILO. For this reason, it is known as the boot manager.
+
+4. Name a service that you should disable (which acts both as web and FTP servers) on a Linux server.
+
+The finger service should be disabled on a Linux server because a remote user can get important information about the system by using this command.
+5. What does sar provide? Where are the sar logs stored?
+
+In Linux, the sar command collects, reports, or saves system activity information, and it serves to log and evaluate a variety of information regarding system activity. With performance problems, sar also permits retroactive analysis of the load values for various sub-systems (CPUs, memory, disks, interrupts, network interfaces, and so on). If CPU utilization is near to 100 percent, the sampled workload is considered to be CPU-bound.
+
+ By default, the log files of the sar command are located at the /var/log/sa/sadd file, where the dd parameter indicates the current day.
+
+6. How to check memory stats and CPU stats as a Linux Admin?
+
+Using the free and vmstat commands, we can display the physical and virtual memory statistics, respectively. With the help of the sar command, we can see the CPU utilization and other stats.
+
+7. Do you know the Maximum length (in bytes) of the filename in Linux?
+
+The maximum length of a filename is 255 bytes. In this filename, the pathname is not included, so the total length of the pathname and filename may easily surpass 255 characters.
+
+8. What are the two different kinds of Linux User Modes?
+
+The following are the two types of Linux user modes:
+
+    Command Line
+    GUI
+
+9. What is Hard Link?
+
+In Linux, Hard links can be defined as another name for an already existing file. For each file, we can generate an unlimited number of hard links. They have the ability to generate links for other hard connections. We can use the “ls -l” command to find out the total number of hard links in a file. And we can create Hard links using the following command:
+
+$ ln [original filename] [link name]
+
+10. Explain the features of the Linux system?
+
+The key features of the Linux system are as follows:
+
+    Linux is a community-based major project which is freely available open-source code. Multiple teams collaborate to improve the capabilities of this operating system, which is always growing.
+    It offers a prominent feature which is that it is a multiuser system, which implies that several users may share system resources such as memory, ram, and application programs.
+    Portability refers to the capacity of software to run on a variety of hardware platforms in the same way. The Linux kernel and application software may be installed on virtually any hardware platform.
+    Linux is a multiprogramming system, which means it can run many programs at the same time.
+    Linux has a Hierarchical File System (HFS), which offers a standardized structure for storing system and user data files.
+    Linux contains a custom interpreter application that allows users to run operating system program commands and instructions.
+    User security is provided by Linux through authentication mechanisms such as password protection, limited access to particular files, and data encryption.
+
+11. Why is Linux regarded as a more secure operating system than other operating systems?
+
+Linux has become more popular in the technology industry in terms of security. There are several reasons why Linux is more secure than other operating systems.
+
+    On Linux, only a few people have access to the system. As a result, the virus cannot infect the entire system but it may affect only a few files.
+    Before opening the files, Linux users must first complete the tasks, so that they can protect their systems against flaws.
+    The Linux operating system includes a variety of working environments, including Linux Mint, Debian, Arch, and others, all of which include virus protection.
+    It keeps a log history so that it may quickly see the specifics of the system files afterward.
+    Iptables is a Linux feature that examines the system’s security circle.
+    As Linux users are comparatively less in number as compared to other operating systems, security will be enhanced.
+
+12. How can you enhance the security of the password file in Linux?
+
+It is in the test file named ‘/etc/passwd’ that Linux usually keeps its user account details, including the one-way encrypted passwords. However, this file can be accessed with the help of different tools, which might throw security issues.
+
+To minimize this risk, we will make use of the shadow password format that saves the account details in a regular file /etc/passwd as in the traditional method but with the password stored as a single ‘x’ character, i.e., it is not the original password that is actually stored in this file. Meanwhile, a second file /etc/shadow will have the encrypted password, along with the other relevant information, such as the account/password expiration date, etc. Most importantly, the latter file is readable only by the root account, and thus it minimizes the security risk.
+13. Linux ACL
+
+Syntax:
+
+To set the permission for any user
+# setfacl -m u:username:permission /path/to/directory
+
+
+To set the permission for any group
+# setfacl -m g:groupname:permission /path/to/directory
+
+To view the permission
+
+ getfacl /path/to/directory
+
+To remove individual acl for any user
+
+# setfacl -x username /path/to/directory
+
+To remove all the acl added by setfacl
+
+# setfacl -b /path/to/directory
+
+To remove the default acls on any directory
+# setfacl -d /path/to/directory
+Examples:
+ To add an acl for user deepak with read and execute permission on mydata directory
+# setfacl -m u:deepak:r-x /mydata
+
+
+To add an acl for group admin on any directories
+# setfacl -m g:admin:rwx /mydata
+
+
+ To add the acl recusively on all the sub directories
+# setfacl -Rm -u:deepak:r-x /mydata/
+
+
+ To view the acl entries on mydata
+# getfacl /mydata
+# file: new
+# owner: root
+# group: root
+user:deepak:r-x
+group:admin:rwx
+group::r-x
+mask::r-x
+other::r-x
+
+# ls -l / | grep mydata
+drwxr-xr-x+ 2 root root 4096 Oct 3 16:49 mydata
+
+
+So here you can see '+' sign is added at the last of permission section of the directory which means that acl is active on that directory.
+
+To remove a particular acl from the directory
+
+# setfacl -x u:deepak /mydata
+
+To remove all the acls from any directories
+
+# setfacl -b /mydata
+
+14. IOSTAT: Report CPU and I/O Statistics
+
+  iostat command generally generates two reports:
+
+    CPU utilization report
+    All disks i/o statistics report
+
+To generate the reports, iostat command reads some of the system files . These files are,
+
+    /proc/diskstats for disk stats
+    /proc/stat for system stats
+    /sys for block device stats
+    /proc/devices for persistent device names
+    /proc/self/mountstats for all  the network filesystems
+    /proc/uptime for information regarding system uptime
+
+    # iostat
+
+Here in the iostat command output,
+
+    %user, is CPU utilization for the user,
+    %nice, is the CPU utilization for apps with nice priority,
+    %system, is the CPU being utilized by the system,
+    %iowait, is the time percentage during which CPU was idle but there was an outstanding i/o request,
+    %steal, percentage of time CPU was waiting as the hypervisor was working on another CPU,
+    %idle, is the percentage of time system was idle with no outstanding request.
+
+iostat -c   – cpu stats
+
+iostat -d  – Generate i/o statistics for all the devices
+
+iostat -x  – Generate detailed i/o statistics
+
+iostat -p sda – Getting i/o statistics for a single device
+
+iostat -m  and iostat -k   – Generate reports in either MB and  KB
+
+iostat -N  — Generate the LVM statistics report
+
+iostat -z  – Generate the reports for only active devices
+
+15. Linux vmstat Command Syntax
+
+The basic vmstat syntax is:
+
+vmstat [options][delay [count]]
+
+    Options – various switches to customize the output.
+    Delay – defines the time elapsed between output updates.
+    Count – the number of output updates after the specified delay interval. If count isn’t set, the default value is infinite.
+
+The list of available options:
+
+Option:
+	
+
+Description:
+
+-a
+	
+
+Displays active and inactive memory.
+
+-f
+	
+
+Displays the number of forks since boot.
+
+-m
+	
+
+Displays slab statistics.
+
+-n
+	
+
+Displays the header only once rather than periodically.
+
+-s
+	
+
+Displays a table of various event counters and memory statistics.
+
+-d
+	
+
+Displays disk statistics.
+
+-D
+	
+
+Detailed disk activity report.
+
+-p
+	
+
+Detailed partition statistics.
+
+-t
+	
+
+Adds a timestamp to the report.
+
+Basic vmstat Output
+
+The basic output of the vmstat command displays system information in six sections.
+
+Basic output of the vmstat command in Linux.
+
+1. procs – Process Statistics
+
+    r – Active process count.
+    b – Sleeping process count.
+
+2. memory – Memory statistics
+
+    swpd – Total virtual memory. The swap space is initially unoccupied. However, the kernel starts using swap space as the system’s physical memory reaches its limit.
+    free – Total free memory.
+    buff – Total memory temporarily used as a data buffer.
+    cache – Total cache memory.
+
+3. swap – Swap space Statistics
+
+    si – The rate of swapping-in memory from disk.
+    so – The rate of swapping-out memory to disk.
+
+4. io – Input/Output Statistics
+
+    bi – Blocks received from a block device per second.
+    bo – Blocks sent to a block device per second.
+
+5. system – Scheduling statistics
+
+    in – The number of system interrupts.
+    cs – The number of context switches per second.
+
+6. cpu – CPU Statistics
+
+    us – The percentage of CPU time spent on non-kernel processes.
+    sy – The percentage of CPU time spent on kernel processes.
+    id – The percentage of idle CPU.
+    wa – The percentage of CPU time spent waiting for Input/Output.
+    st – The percentage of CPU time stolen by a virtual machine.
+
+16.  login  file located in /var/log/wtmp
+
+17. Ports
+
+Port No
+	
+
+Port
+	
+
+Protocol
+
+21
+	
+
+FTP
+	
+
+TCP
+
+22
+	
+
+SSH
+	
+
+TCP
+
+23
+	
+
+TELNET
+	
+
+TCP
+
+25
+	
+
+SMTP
+	
+
+TCP
+
+53
+	
+
+DNS
+	
+
+TCP, UDP
+
+67,68
+	
+
+DHCP
+	
+
+UDP
+
+80
+	
+
+HTTP
+	
+
+TCP
+
+110
+	
+
+POP3
+	
+
+TCP
+
+111
+	
+
+Portmapper
+	
+
+TCP, UDP
+
+123
+	
+
+NTP
+	
+
+UDP
+
+137
+	
+
+NetBIOS
+	
+
+TCP, UDP
+
+143
+	
+
+IMAP
+	
+
+TCP, UDP
+
+161,162
+	
+
+SNMP
+	
+
+UDP
+
+443
+	
+
+HTTPS
+	
+
+TCP
+
+6379 redis|  3306 mysql  | 27017 mongo  | 9200 9300 elk    | 5044 logstash
+
+Storage
+1.  Scanning LUN
+
+  Scanning can be performed in two ways.
+
+    Scan each FC host & SCSI host device using /sys class file.
+
+      2.   Run the “rescan-scsi-bus.sh” script to detect new disks.
+
+Method 1
+
+echo "c t l" > /sys/class/scsi_host/host[n]/scan
+
+        c – Channel on the HBA
+
+        t – SCSI target ID
+
+  l – LUN ID
+
+  n – HBA number
+
+Run the below command to find all the host bus number in your system.
+
+[prashanthg-10070545@14-100-IDC ~]$ ls /sys/class/scsi_host
+
+host0  host1  host2  host3  host4  host5  host6  host7  host8
+
+[prashanthg-10070545@14-100-IDC ~]$
+
+Once the host bus number has been verified, run the following command to discover new disks.
+
+echo "- - -" > /sys/class/scsi_host/host0/scan
+
+echo "- - -" > /sys/class/scsi_host/host1/scan
+
+echo "- - -" > /sys/class/scsi_host/host2/scan
+
+Or use forloop
+
+for host in `ls /sys/class/scsi_host`; do echo "Scanning $host...Completed"; echo "- - -" > /sys/class/scsi_host/$host/scan; done
+
+Method 2
+
+yum install -y sg3_utils
+
+# ./rescan-scsi-bus.sh
+2.  Fstab entries for filesystem
+
+    For ext4
+
+/dev/mapper/mpathe           /var/lib/SQL               ext4        defaults,_netdev,noatime,barrier=0            0 0
+
+    For NFS
+
+192.168.12.235:/Whats_app /whatsapp_entdata              nfs        mountvers=3        0 0
+
+# mount -t nfs 192.168.0.100:/nfsshare /mnt/nfsshare
+ 3.  NFS
+
+      NFS allows a linux server to share directories with other UNIX clients over network. NFS server exports a directory and NFS client mounts this directory
+
+NFS server and RPC processes
+
+starting the nfs-server process starts the NFS server and other RPC processes. RPC processes includes:
+– rpc.statd : implements monitoring protocol (NSM) between NFS client and NFS server
+– rpc.mountd : NFS mount daemon that implements the server side of the mount requests from NFSv3 clients.
+– rpc.idmapd : Maps NFSv4 names and local UIDs and GIDs
+– rpc.rquotad : provides user quota information for remote users.
+
+   # yum install nfs-utils rpcbind
+
+2. Enable the services at boot time:
+
+#  systemctl enable nfs-server
+
+#  systemctl enable rpcbind
+
+#  systemctl enable nfs-lock
+
+In RHEL7.1 (nfs-utils-1.3.0-8.el7) enabling nfs-lock does not work (No such file or directory). it does not need to be enabled since rpc-statd.service is static.
+
+#  systemctl enable nfs-idmap
+
+In RHEL7.1 (nfs-utils-1.3.0-8.el7) this does not work (No such file or directory). it does not need to be enabled since nfs-idmapd.service is static.
+
+3. Start the NFS services:
+
+#  systemctl start rpcbind
+
+#  systemctl start nfs-server
+
+#  systemctl start nfs-lock
+
+#  systemctl start nfs-idmap
+
+4. Check the status of NFS service:
+
+# systemctl status nfs
+
+Centos/Redhat
+
+Benefits of NFS
+
+    File / Folder sharing between *nix systems
+    Allows to mount remote filesystems locally
+    Can be acted as Centralized Storage system
+    It can be used as a Storage Domain ( Datastore) for VMware and other Virtualization Platform.
+    Allows applications to share configuration and data files with multiple nodes.
+    Allows having updated files across the share.
+
+Important Services
+
+The following are the important NFS services, included in nfs-utils packages.
+
+rpcbind: The rpcbind server converts RPC program numbers into universal addresses.
+
+nfs-server: It enables clients to access NFS shares.
+
+nfs-lock / rpc-statd: NFS file locking. Implement file lock recovery when an NFS server crashes and reboots.
+
+nfs-idmap: It translates user and group ids into names, and to translate user and group names
+into ids
+Important Configuration Files
+
+You would be working mainly on below configuration files to setup NFS server and Clients.
+
+/etc/exports: It is the main configuration file, controls which file systems are exported to remote hosts and specifies options.
+
+/etc/fstab: This file is used to control what file systems including NFS directories are mounted when the system boots.
+
+/etc/sysconfig/nfs: This file is used to control which ports the required RPC services run on.
+
+/etc/hosts.allow and /etc/hosts.deny: These files are called TCP wrappers, controls the access to the NFS server. It is used by NFS to decide whether or not to accept a connection coming in from another IP address.
+
+Configuration
+
+You can also share your existing directory with NFS.
+
+mkdir /nfsfileshare
+
+Allow NFS client to read and write to the created directory.
+
+chmod 777 /nfsfileshare/
+
+We have to modify /etc/exports file to make an entry of directory /nfsfileshare that you want to share.
+
+vi /etc/exports
+
+Create a NFS share something like below.
+
+/nfsfileshare 192.168.1.20(rw,sync,no_root_squash)
+
+/nfsfileshare: shared directory
+
+Export the shared directories using the following command.
+
+exportfs -r
+
+Extras:
+
+exportfs -v: Displays a list of shares files and export options on a server.
+exportfs -a: Exports all directories listed in /etc/exports.
+exportfs -u: UnExport one or more directories.
+exportfs -r: ReExport all directories after modifying /etc/exports.
+
+192.168.1.20: IP address of client machine. We can also use the hostname instead of an IP address. It is also possible to define the range of clients with subnet like 192.168.1.0/24.
+
+rw: Writable permission to shared folder
+
+sync: All changes to the according filesystem are immediately flushed to disk; the respective write operations are being waited for.
+
+no_root_squash
+
+The no_root_squash option allows root users on the client side to create files with root privileges on the server side: This means that root users can perform any actions, such as reading, writing, or executing files, with the same permissions as on the local file system.
+
+root_squash
+
+On the other hand, the root_squash option maps the root user on the client side to an anonymous user on the server side. If we don't really trust the clients mounting the filesystem it will help prevent privilege escalations on the NFS server.
+4. LVM
+
+LVM
+
+https://www.linuxhelp.com/how-to-manage-and-create-lvm-on-centos-7
+
+https://www.youtube.com/watch?v=Eu1WrVjzRy8
+
+    To Create new partition Press n.
+    Choose primary partition use p.
+    Choose which number of partition to be selected to create the primary partition.
+    Press 1 if any other disk available.
+    Change the type using t.
+    Type 8e to change the partition type to Linux LVM.
+    Use p to print the create partition ( here we have not used the option).
+    Press w to write the changes.
+
+Get storage
+
+Create new partition using fdisk
+
+$ fdisk /dev/sdb
+
+n  —> new
+
+p  —> primary
+
+Fist sector —> enter
+
+Allocate required size
+
+t —> type of fs  and select 8e
+
+W —-> save
+
+Partprobe —-> refresh disk
+
+ 
+
+Now we can see sdb1 under sdb using $ lsblk
+
+Lets create physical volume
+
+$ pvcreate /dev/sdb1
+
+Lets create volume group with name
+
+$ vgcreate test /dev/sdb1
+
+Lets create logical volume
+
+$ lvcreate
+
+lvcreate -n <new lv name> -L <size > <vgname>
+
+lvcreate  -n rebel -L +10G test
+
+Check lsblk then u can find lvm new partition
+
+Formate new partition with required file system
+
+Mkfs.ext4 /dev/test/rebel
+
+Then find blkid and create new directory and  make entry in /etc/fstab
+
+$ mkdir prashanth
+
+Check blk id of new partition
+
+$blkid
+
+Make entry in fstab
+
+Ex: uuid=1234566  /prashanth  ext4 defaults 0 0
+
+Then mount new partition
+
+ mount -a
+
+df -h we can see
+
+/prashanth
+
+Unmounting
+
+—-> revers
+
+Resize LVM
+
+https://www.tecmint.com/extend-and-reduce-lvms-in-linux/
+
+Reducing the logical volume involves the below steps.
+
+    Unmount the file system.
+    Check the file system for any errors.
+    Shrink the file system size.
+    Reduce the logical volume size.
+    Re-check the file system for errors (Optional).
+    Mount the file system
+    Check the reduced file system size
+
+Steps:
+
+https://www.2daygeek.com/reduce-shrink-decrease-resize-lvm-logical-volume-in-linux/
+
+For instance; You have a 100GB LVM that no longer uses the full size, you want to reduce it to 80GB so 20GB can be used for other purposes.
+
+# df -h /testlvm1
+
+Filesystem              Size Used Avail Use% Mounted on
+
+/dev/mapper/vg01-lv002  100G 15G  85G   12%  /testlvm1
+
+1) Unmount the file system
+
+Use the umount command to unmount the file system.
+
+# umount /testlvm1
+
+2) Check the file system for any Errors
+
+Check the file system for any errors using the e2fsck command.
+
+2fsck -f /dev/mapper/vg01-lv002
+
+e2fsck 1.42.9 (28-Dec-2013)
+
+Pass 1: Checking inodes, blocks, and sizes
+
+Pass 2: Checking directory structure
+
+Pass 3: Checking directory connectivity
+
+Pass 4: Checking reference counts
+
+Pass 5: Checking group summary information
+
+/dev/mapper/vg01-lv002: 13/6553600 files (0.0% non-contiguous), 12231854/26212352 blocks
+
+3) Shrink the file system.
+
+The below command will reduce the “testlvm1” file system from 100GB to 80GB.
+
+Common syntax for file system resize (resize2fs).
+
+resize2fs [Existing Logical Volume Name] [New Size of File System]
+
+The actual command is as follows.
+
+# resize2fs /dev/mapper/vg01-lv002 80G
+
+resize2fs 1.42.9 (28-Dec-2013)
+
+Resizing the filesystem on /dev/mapper/vg01-lv002 to 28321400 (4k) blocks.
+
+The filesystem on /dev/mapper/vg01-lv002 is now 28321400 blocks long.
+
+4) Reduce the Logical Volume (LVM)
+
+Now reduce the logical volume (LVM) size using the lvreduce command. The below command “/dev/mapper/vg01-lv002” will shrink the Logical volume (LVM) from 100GB to 80GB.
+
+Common syntax for LVM Reduce (lvreduce)
+
+# lvreduce -L 80G /dev/mapper/vg01-lv002
+
+WARNING: Reducing active logical volume to 80.00 GiB
+
+THIS MAY DESTROY YOUR DATA (filesystem etc.)
+
+Do you really want to reduce lv002? [y/n]: y
+
+Reducing logical volume lv002 to 80.00 GiB
+
+Logical volume lv002 successfully resized
+
+Increase LVM
+
+LVM
+
+        
+
+Network
+1. Bonding NIC card
+
+[prashanthg-10070545@14-100-IDC network-scripts]$ cat ifcfg-enp3s0f0
+
+TYPE="Ethernet"
+
+BOOTPROTO=none
+
+DEFROUTE="yes"
+
+IPV4_FAILURE_FATAL="no"
+
+IPV6INIT="yes"
+
+IPV6_AUTOCONF="yes"
+
+IPV6_DEFROUTE="yes"
+
+IPV6_FAILURE_FATAL="no"
+
+NAME="enp3s0f0"
+
+UUID="34a712d7-a974-4440-baa3-1bb7b6f349e0"
+
+DEVICE="enp3s0f0"
+
+ONBOOT=yes
+
+PREFIX="24"
+
+DOMAIN="8.8.8.8"
+
+IPV6_PEERDNS="yes"
+
+IPV6_PEERROUTES="yes"
+
+IPV6_PRIVACY="no"
+
+TYPE=Ethernet
+
+DEFROUTE=yes
+
+MASTER=bond0
+
+SLAVE=yes
+
+[prashanthg-10070545@14-100-IDC network-scripts]$ cat ifcfg-enp3s0f1
+
+TYPE=Ethernet
+
+BOOTPROTO=none
+
+DEFROUTE=yes
+
+PEERROUTES=yes
+
+IPV4_FAILURE_FATAL=no
+
+IPV6INIT=yes
+
+IPV6_AUTOCONF=yes
+
+IPV6_DEFROUTE=yes
+
+IPV6_PEERDNS=yes
+
+IPV6_PEERROUTES=yes
+
+IPV6_FAILURE_FATAL=no
+
+NAME=enp3s0f1
+
+UUID=9bb4d38d-e6d6-48db-8911-a54e1f152956
+
+DEVICE=enp3s0f1
+
+ONBOOT=yes
+
+TYPE=Ethernet
+
+DEFROUTE=yes
+
+MASTER=bond0
+
+SLAVE=yes
+
+[prashanthg-10070545@14-100-IDC network-scripts]$ cat ifcfg-bond0
+
+DEVICE=bond0
+
+NAME=bond0
+
+TYPE=Bond
+
+BONDING_MASTER=yes
+
+IPADDR=192.168.14.100
+
+ONBOOT=yes
+
+PREFIX=24
+
+GATEWAY=192.168.14.10
+
+BOOTPROTO=none
+
+BONDING_OPTS="mode=1 miimon=200"
+
+mode 0 (balance-rr)
+
+Round-robin policy. Transmits packets in sequential order from the first available slave through the last. This mode provides load balancing and fault tolerance.
+
+mode 1 (active-backup)
+
+Active-backup policy. Establishes that only one slave in the bond is active. A different slave becomes active if, and only if, the active slave fails. The bond's MAC address is externally visible on only one port (network adapter) to avoid confusing the switch. This mode provides fault tolerance. The primary option affects the behavior of this mode.
+
+mode 2 (balance-xor)
+
+Transmits based on the selected transmit hash policy, which can be altered via the xmit_hash_policy option. This mode provides load balancing and fault tolerance.
+
+mode 3 (broadcase)
+
+Transmits everything on all slave interfaces. This mode provides fault tolerance.
+
+mode 4 (802.3ad)
+
+IEEE 802.3ad Dynamic link aggregation policy. Creates aggregation groups that share the same speed and duplex settings. Utilizes all slaves in the active aggregator according to the 802.3ad specification.
+
+mode 5 (balance-tlb)
+
+Adaptive transmit load balancing. Establishes channel bonding that does not require any special switch support. The outgoing traffic is distributed according to the current load (computed relative to the speed) on each slave. Incoming traffic is received by the current slave. If the receiving slave fails, another slave takes over the MAC address of the failed receiving slave.
+
+mode 6 (balance-alb)
+
+Adaptive load balancing. Includes balance-transmit load balancing plus receive-load balancing for IPv4 traffic, and does not require any special switch support. The receive-load balancing is achieved by ARP negotiation. The bonding driver intercepts the ARP replies sent by the local system on their way out and overwrites the source hardware address with the unique hardware address of one of the slaves in the bond. Thus, different peers use different hardware addresses for the server.
+
+Ansible
+
+ANSIBLE
+
+                DOCUMENTSTAION
+
+Ansible;
+
+its a automation / confguration management tool to deploy multiple nodes / remote hosts
+
+Ansible engine:
+
+                 it may be any device to  connect  such as linux , windows, network, Docker,
+
+or cloud
+
+ it usess push machanism
+
+its a agentless service tool
+
+Ansible engine run tasks simaltiouneslly on each nodes
+
+What is Ansible?
+
+Ansible is an open-source platform used for automation and for various operations such as configuration management, application deployment, task automation, and IT orchestration. Ansible is easy to set up, and it is efficient, reliable, and powerful. It runs on Linux, Mac, or BSD. Apart from the free version, it has an enterprise edition called ‘Ansible Tower.’
+
+Important Terms in Ansible
+
+Controller Machine: This is where Ansible gets installed. The controller machine helps in enabling provisioning on servers we manage.
+
+Inventory: This is basically an initializing file that contains information about the servers that we are managing.
+
+Playbook: It is an organized unit of scripts defining an automated work for the configuration management of our server. (yaml)
+
+Task: A task block defines a single procedure to be executed on the server like installing packages.
+
+Ansible Workflow
+
+sysadmins will provision more servers to do configuration management. They need not do it manually anymore but install Ansible on the master node where they need to write the code into the Ansible playbook to describe the setup, installation process, and the configuration required for these servers.
+
+The local machine connects to these servers (nodes) through an inventory using secured SSH connections.
+
+Ansible Architecture
+
+Modules
+
+Ansible connects the nodes and pushes out small ‘Ansible Modules.’ Modules are executed by Ansible and then get removed when finished. These modules can reside on any machine; no servers or daemons or databases are required here. We can work with the text editor of our choice or a terminal and a version control system to keep track of the changes made in our content.
+Plugins
+
+A plugin is a piece of code that expands the core functionality of Ansible. There are plenty of handy plugins, and we can write our own plugins as well.
+Inventory
+
+We already discussed this in the Ansible Terminologies section. An inventory is a list of hosts/nodes, having IP addresses, servers, databases, etc., which need to be managed.
+Playbooks
+
+As discussed earlier, we write our code in a playbook. It is simple and written in the YAML format and basically describes tasks that are supposed to be executed through Ansible. We can launch tasks synchronously or asynchronously with playbooks.
+APIs
+
+Ansible APIs work as transport for cloud services, either public or private.
+
+Hosts
+
+Hosts are basically the node systems in the Ansible architecture getting automated by Ansible only. They can be any type of machine such as Windows, Red Hat, Linux, etc.
+Networking
+
+We can use Ansible to automate different networks. It uses the easy, simple, yet powerful, agentless automation framework for IT operations and development. It uses a type of data model (playbook or role), which is separated from the Ansible Automation Engine that spans across different network hardware quite easily.
+CMDB
+
+CMDB is a type of repository that acts as a data warehouse for the IT installations.
+Cloud
+
+A network of remote servers on which we can store, manage, and process our data. These servers are hosted on the Internet. For storing the data remotely rather than on local servers, we would just launch our resources and instances on the cloud and connect them to our servers, and we would have the wisdom of operating our task remotely.
+
+Benefits of Using Ansible
+
+Agentless:
+
+no agent/software or additional firewall ports are required to install on our client or host systems for automation
+
+Simple: As we’ve seen, Ansible uses a very simple syntax written in YAML known as playbooks—YAML (Yet Another Markup Language) is a human-readable data serialization language. We don’t need special coding skills to code and understand playbooks. It is very easy to install and execute tasks in order.
+
+Modular: Ansible is modular as we require only one program per script. This way, we can spread our programs across different servers.
+
+Efficient: Not requiring any extra software on our servers means that there is more space for our resources.
+
+Powerful and flexible: Having powerful features gives us the capability to model even complex IT workflows in lesser time, along with managing infrastructure, networks, operating systems, and services that are already in use.
+
+Operations by Ansible
+
+Configuration Management
+
+Ansible provides stability in the performance of our product by recording and updating stats in detail. This describes all information about the hardware and software of an enterprise/organization, such as versions and updates applied to the installed software packages, along with the locations and network addresses of hardware devices.
+
+For example, suppose, Company A wants to install the new version of Nginx on all of its server machines. It won’t be feasible for the company to update each and every machine manually. Hence, it just installs Nginx on one of its machines and deploys it across the rest of the machines using Ansible playbooks.
+Resource/Server Provisioning
+
+Either we are booting/starting servers/virtual machines or creating cloud instances from various templates, Ansible is always there to help us with the smooth running of the process. Ansible makes sure to provide the required packages installed on our application.
+Application Deployment
+
+With Ansible, we can define our application and manage its deployment. Instead of performing the deployment steps one by one, we just need to install Ansible on our machine and it will do the same tasks for us, even in lesser time. Provided those tasks are listed in our Ansible playbook, Ansible executes them in order.
+Security and Compliance
+
+With Ansible, we can easily configure our security details. We do it once in a control machine and the same security details will be spread across all the other nodes.
+
+Setting up Ansible on CentOS
+
+yum install epel-release -y
+
+yum install ansible -y
+
+ansible –version
+
+set up the password-less SSH authentication for our nodes on our Ansible control machine. Then, we will generate an SSH key on the control machine
+
+ssh-keygen
+
+After the public key of our Ansible server is generated, we have to copy it to the nodes, using this command:
+
+ssh-copy-id -i root@<IP address of our node machine>
+
+Files modules
+
+https://docs.ansible.com/ansible/2.8/modules/list_of_files_modules.html
+
+1.Copy module
+
+prashanthg@prashanthg:~/Ansible$ ansible  -i host all -u prashanthg --ask-pass  -m copy -a "src=/home/prashanthg/Ansible/host dest=/tmp/host"
+
+---
+2. Lineinfile module
+
+     Ansible Lineinfile is a module of Ansible that is used to modify the particular line in a file. It is useful to add a new line, modify a line, replace a line, and remove an existing line in a file if it finds a specific text.
+
+3. Yum module
+
+4. User module
+
+5. Fetch module
+
+Ansible Roles
+
+   the role is the primary mechanism for breaking a playbook into multiple files. This simplifies writing complex playbooks, and it makes them easier to reuse. The breaking of playbook allows you to logically break the playbook into reusable components.
+
