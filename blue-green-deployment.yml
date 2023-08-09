@@ -30,6 +30,8 @@ spec:
         volumeMounts:
           - mountPath: /var/www/production/
             name: prod-dir
+          - mpontPath: /etc/nginx/
+            name: nginx-config
           - mountPath: /etc/hosts
             name: hosts
           - mountPath: /var/log/nginx
@@ -38,11 +40,12 @@ spec:
         - name: prod-dir
           hostPath:
             path: /var/www/production/projeck_k
-            
+        - name: nginx-config
+          hostPath:
+            path: /var/www/production/projeck_k/webserver/                      
         - name: hosts
           hostPath:
-            path: /etc/hosts
-            
+            path: /etc/hosts    
         - name: ngix-logs
           hostPath:
             path: /var/log/nginx
