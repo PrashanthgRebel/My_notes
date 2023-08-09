@@ -28,11 +28,17 @@ spec:
         - containerPort: 80
           containerPort: 81
         volumeMounts:
+          - mountPath: /var/www/production/
+            name: prod-dir
           - mountPath: /etc/hosts
             name: hosts
           - mountPath: /var/log/nginx
             name: ngix-logs
       volumes:
+        - name: prod-dir
+          hostPath:
+            path: /var/www/production/projeck_k
+            
         - name: hosts
           hostPath:
             path: /etc/hosts
