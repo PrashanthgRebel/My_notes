@@ -19,7 +19,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: notes-blue-green-deply-ingress
-  namespace: notes-user-deploy
+  namespace: test
 spec:
   rules:
   - host: www.prashanthgnotes.com
