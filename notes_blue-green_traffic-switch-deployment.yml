@@ -9,6 +9,8 @@ spec:
   - nodePort: 30166
     port: 111
     targetPort: 80
+    protocal: TCP
+  - nodeport: 30177
     port: 112
     targetPort: 81
     protocol: TCP
