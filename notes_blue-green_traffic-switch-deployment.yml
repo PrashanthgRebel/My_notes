@@ -24,7 +24,7 @@ metadata:
   namespace: notes-user-deploy
 spec:
   rules:
-  - host: www.prashanthgnotes.com
+  - host: 172.29.87.227
     http:
       paths:
       - path: /
