@@ -22,8 +22,8 @@ spec:
       - name: notes-deployment-target-role
         image: registry.prashanth.private:5000/notes:ImageTAG
         imagePullPolicy: Always
-        securityContext:
-          privileged: true
+        #securityContext:
+          #privileged: true
         ports:
         - containerPort: 80
           containerPort: 81
