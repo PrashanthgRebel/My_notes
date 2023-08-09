@@ -6,7 +6,7 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - nodeport: 30177
+  - nodeport: 30166
     port: 112
     targetPort: 81
     protocol: TCP
@@ -31,6 +31,5 @@ spec:
           service:
             name: notes-blue-green-service
             port:
-              number: 111
               number: 112
   ingressClassName: nginx
