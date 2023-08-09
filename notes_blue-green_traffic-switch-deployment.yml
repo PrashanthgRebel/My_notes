@@ -2,11 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: notes-blue-green-service
-  namespace: notes-user-deploy
+  namespace: test
 spec:
   type: NodePort
   ports:
-  - nodeport: 30166
+  - nodePort: 30140
     port: 112
     targetPort: 81
     protocol: TCP
@@ -22,7 +22,7 @@ metadata:
   namespace: notes-user-deploy
 spec:
   rules:
-  - host: www.prashanthgnotes.co
+  - host: www.prashanthgnotes.com
     http:
       paths:
       - path: /
