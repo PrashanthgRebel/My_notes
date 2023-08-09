@@ -6,10 +6,6 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - nodePort: 30166
-    port: 111
-    targetPort: 80
-    protocal: TCP
   - nodeport: 30177
     port: 112
     targetPort: 81
@@ -26,7 +22,7 @@ metadata:
   namespace: notes-user-deploy
 spec:
   rules:
-  - host: www.prashanthgnotes.com
+  - host: www.prashanthgnotes.co
     http:
       paths:
       - path: /
