@@ -10,7 +10,7 @@ spec:
     port: 111
     targetPort: 80
     port: 112
-    targetPort: 80
+    targetPort: 81
     protocol: TCP
   selector:
     role: target-role
