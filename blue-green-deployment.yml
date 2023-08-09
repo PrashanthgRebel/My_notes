@@ -4,7 +4,7 @@ metadata:
   name: notes-deployment-target-role
   labels:
     role: target-role
-  namespace: notes-user-deploy
+  namespace: test
 spec:
   
   replicas: 2
