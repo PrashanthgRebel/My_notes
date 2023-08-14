@@ -1,0 +1,20 @@
+redis notes
+
+Create master first from any server
+
+#redis-cli  --cluster create 192.168.11.62:6379 192.168.11.64:6379 192.168.11.66:6379 192.168.11.68:6379 192.168.11.70:6379
+
+
+Remove node from cluster 
+
+# for i in `redis-cli -h 192.168.42.237 -a 'password' -c cluster nodes | grep -i '192.168' | awk '{print $2}' | cut -f1 -d:` ; do echo $i ; redis-cli -h $i -a 'password' -c CLUSTER FORGET 
+"cluster ID of of removing server" ; done
+
+
+ join node to cluster >  login to master 
+
+# > cluster meet <NodeIP> 6379
+
+replicate keys
+
+# > cluster replicate <enter master id of slave node>
